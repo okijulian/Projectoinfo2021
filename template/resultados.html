@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Resultado
+{% endblock title %}
+
+{% block content %}
+{% include "navbar/navbarinicio.html" %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4 offset-sm-2 offset-md-3 offset-lg-4">
+            <div class="card">
+                
+                <div class="box" >
+
+
+								<h3 class="">{{respondida.pregunta.texto|safe}}</h3>
+								<p>
+									<strong>Tu respuesta:</strong>
+									{{respondida.respuesta.texto|safe}}
+								</p>
+
+
+							{% if respondida.respuesta.correcta %}
+								<h4 class="text-success">Genial!! Tu respuesta es correcta </h4><h3>&#128526 &#128526</h3>
+							{% else %}
+								<h4 class="text-danger">Tu respuesta es incorrecta!!!</h4> <h3>&#128565 &#128565</h3>
+
+								{% for respuesta in respondida.pregunta.opciones.all %}
+
+									{% if respuesta.correcta %}
+
+										<h4>La respuesta correcta es: <span class="">{{respuesta}}</span></h4>
+										
+									{% endif %}
+
+								{% endfor %}
+
+							{% endif %}
+
+							<a href="{% url 'jugar' %}">
+								<button class="btn btn-success">
+									Siguiente Pregunta
+								</button>
+							</a>
+								
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+{% endblock %}

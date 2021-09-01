@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Inicio
+{% endblock title %}
+
+{% block content %}
+{% include "navbar/navbar.html" %}
+
+<br><br><br><br><br>
+<section id="section-jumbotron" style="background-color: #eee" class="jumbotron jumbotron-fluid d-flex justify-content-center align-items-center">
+    <div class="container text-center">
+      <h1 class="display-1 " style=" color: rgb(59, 137, 173)">Bienvenido</h1>
+      <p class="display-4 d-none d-sm-block">Pon a prueba tus conocimientos sobre </p>
+      <p class="display-4 d-none d-sm-block"> CHACO-ARGENTINA</p>
+
+      <p class="lead">Podras ir seleccionando y respondiendo preguntas en diversas categorias</p>
+          
+      <p class="lead"> Pero Primero tienes que:  </p>
+      
+      <a href="{% url 'login' %}" class="btn btn-lg btn-success">Inicia Sesión</a>
+      
+
+
+    </div>  
+  </section>
+
+
+{% endblock content %}

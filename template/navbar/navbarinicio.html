@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    
+{% endblock title %}
+
+{% block content %}
+<nav class="navbar navbar-light bg-dark static-top">
+  <div class="container">
+      <a class="navbar-brand" href="{% url 'HomeUsuario' %}" >App de Preguntas</a>
+      <a class="btn btn-secondary"  href="{% url 'tablero' %}">&#127942 &#127942 RANKING de Jugadores &#127942 &#127942</a>
+      <a class="btn btn-danger" href= "{% url 'logout_vista' %}">Cerrar Sesion</a>
+      
+  </div>
+</nav>
+{% endblock content %}
