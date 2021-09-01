@@ -7,16 +7,16 @@ from .views import (
 urlpatterns = [
 	
 	path('', inicio, name='inicio'),
-	path('HomeUsuario/', HomeUsuario, name='HomeUsuario'),
+	path('HomeUsuario', HomeUsuario, name='HomeUsuario'),
 
 
-	path('login/', loginView, name='login'),
-	path('logout_vista/', logout_vista, name='logout_vista'),
-	path('registro/', registro, name='registro'),
-	path('tablero/', tablero, name='tablero'),
+	path('login', loginView, name='login'),
+	path('logout_vista', logout_vista, name='logout_vista'),
+	path('registro', registro, name='registro'),
+	path('tablero', tablero, name='tablero'),
 
 	
-	path('jugar/', jugar, name='jugar'),
-	path('resultado/<int:pregunta_respondida_pk>/', resultado_pregunta, name='resultado'),
+	path('jugar', jugar, name='jugar'),
+	path('resultado/<int:pregunta_respondida_pk>', resultado_pregunta, name='resultado'),
 
 ]
