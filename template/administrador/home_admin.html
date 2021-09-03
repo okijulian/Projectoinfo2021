@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Administrador 
+{% endblock title %}
+
+
+{% block content %}
+{% include "navbar/navbaradmin.html" %}
+
+<div class="container my-4">
+    <div class="jumbotron">
+
+	      <h2 class="text-center text-secundary">Bienvenido Administrador</h2>
+          <h3 class="text-center text-secundary">Aqui podras Agregar y ver todas  categorias, preguntas y respuestas de la app</h3>
+	      <h3 class="text-danger text-center"></h3>
+            <br><br><br><br>
+          <section class="features-icons bg-light text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                            <br>      
+                            <a href="{% url 'crear_categoria' %}" class="btn  btn-success" ></i>Agrega una Categoria</a> 
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                            <br>      
+                            <a href="{% url 'agregar_pregunta' %}" class="btn  btn-info" ></i>Agrega Preguntas a las Categorias</a>  
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                            <br>      
+                            <a href="{% url 'agregar_respuesta' %}" class="btn  btn-warning" ></i>Agrega Respuestas a las Preguntas</a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="features-icons bg-light text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                            <br>      
+                            <a href="{% url 'ver_categoria' %}" class="btn  btn-success" ></i>VER Categorias</a> 
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                            <br>      
+                            <a href="{% url 'ver_preguntas' %}" class="btn  btn-info" ></i>VER Preguntas de las categorias</a>  
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                            <br>      
+                            <a href="{% url 'ver_respuestas' %}" class="btn  btn-warning" ></i>VER Respuestas a las Preguntas</a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock content %}

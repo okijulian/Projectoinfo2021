@@ -12,7 +12,7 @@ class ElegirRespuestaInline(admin.TabularInline):
 class PreguntaAdmin(admin.ModelAdmin):
 	model = Pregunta
 	inlines = (ElegirRespuestaInline, )
-	list_display = ['texto',]
+	list_display = ['texto','Selec_categoria']
 	search_fields = ['texto', 'preguntas__texto']
 
 
@@ -24,7 +24,7 @@ class PreguntasRespondidasAdmin(admin.ModelAdmin):
 
 class CategoriaAdmin(admin.ModelAdmin):
 	model= Categoria
-	list_display=['nombre']
+	list_display=['nombre','descripcion']
 
 
 admin.site.register(PreguntasRespondidas)

@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404,reverse
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-from .forms import RegistroFormulario, UsuarioLoginFormulario
-from django.http import Http404
+from django.contrib.auth.decorators import login_required, user_passes_test
+from .forms import RegistroFormulario, UsuarioLoginFormulario, CategoriaForm,RespuestaForm, PreguntaForm
+from django.http import Http404, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
-from .models import QuizUsuario, Pregunta, PreguntasRespondidas
+from .models import QuizUsuario, Pregunta, PreguntasRespondidas, Categoria ,ElegirRespuesta
+from datetime import datetime
 
 
 def inicio(request):
@@ -17,12 +18,86 @@ def inicio(request):
 
 	return render(request, 'index.html', context)
 
+## desde aqui empiezan las views del administrador. estan 
+def es_admin(user):
+	return user.groups.filter(name='ADMIN').exists()
+
+
+@login_required()
+@user_passes_test(es_admin)
+def HomeAdministrador(request):
+
+	return render(request, 'administrador/home_admin.html')
+
+
+@login_required()
+@user_passes_test(es_admin)
+def crear_categoria(request):
+	categoriaForm=CategoriaForm()
+	if request.method=='POST':
+		categoriaForm=CategoriaForm(request.POST)
+		if categoriaForm.is_valid():
+			categoriaForm.save()
+		return redirect('agregar_pregunta')
+		
+	return render(request, 'administrador/crear_categoria.html', {'categoriaForm': categoriaForm})
+
+
+@login_required()
+@user_passes_test(es_admin)
+def agregar_pregunta(request):
+    preguntaForm=PreguntaForm()
+    if request.method=='POST':
+        preguntaForm=PreguntaForm(request.POST)
+        if preguntaForm.is_valid():
+            texto=preguntaForm.save(commit=False)
+            Selec_categoria=Categoria.objects.get(id=request.POST.get('categoria'))
+            texto.Selec_categoria=Selec_categoria
+            texto.save() 
+       
+    return render(request,'administrador/agregar_pregunta.html',{'preguntaForm':preguntaForm})
+
+@login_required()
+@user_passes_test(es_admin)
+def agregar_respuesta(request):
+	respuestaForm= RespuestaForm()
+	if request.method=='POST':
+		respuestaForm=RespuestaForm(request.POST)
+		if respuestaForm.is_valid():
+			texto=respuestaForm.save(commit=False)
+			pregunta=Pregunta.objects.get(id=request.POST.get('pregunta'))
+			texto.pregunta=pregunta
+			texto.save()
+	
+	return render(request, 'administrador/agregar_respuesta.html', {'respuestaForm' : respuestaForm})
+
+@login_required()
+@user_passes_test(es_admin)
+def ver_categoria(request):
+	categoria=Categoria.objects.all()
+	return render(request, 'administrador/ver_categoria.html',{'categoria':categoria})
+
+@login_required()
+@user_passes_test(es_admin)
+def ver_preguntas(request):
+	preguntas=Pregunta.objects.all()
+	return render(request, 'administrador/ver_preguntas.html',{'preguntas':preguntas})
+
+@login_required()
+@user_passes_test(es_admin)
+def ver_respuestas(request):
+	respuesta=ElegirRespuesta.objects.all()
+	return render(request, 'administrador/ver_respuestas.html',{'respuesta':respuesta})
+
+
+#### desde aqui estan los views de los jugadores 
+
 @login_required()
 def HomeUsuario(request):
 
-	return render(request, 'home.html')
+	return render(request, 'juego/home.html')
 
-
+@login_required()
 def tablero(request):
 	total_usaurios_quiz = QuizUsuario.objects.order_by('-puntaje_total')[:10]
 	contador = total_usaurios_quiz.count()
@@ -33,7 +108,8 @@ def tablero(request):
 		'contar_user':contador
 	}
 
-	return render(request, 'tablero.html', context)
+	return render(request, 'juego/tablero.html', context)
+
 
 @login_required()
 def jugar(request):
@@ -63,7 +139,7 @@ def jugar(request):
 			'pregunta':pregunta
 		}
 
-	return render(request, 'jugar.html', context)
+	return render(request, 'juego/jugar.html', context)
 
 
 @login_required()
@@ -73,7 +149,7 @@ def resultado_pregunta(request, pregunta_respondida_pk):
 	context = {
 		'respondida':respondida
 	}
-	return render(request, 'resultados.html', context)
+	return render(request, 'juego/resultados.html', context)
 
 def loginView(request):
 	titulo = 'login'
@@ -117,5 +193,3 @@ def logout_vista(request):
 	logout(request)
 	return redirect('/')
 
-
-    

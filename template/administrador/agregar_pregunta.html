@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Agregar Preguntas
+{% endblock title %}
+
+{% block content %}
+{% include "navbar/navbaradmin.html" %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4 offset-sm-2 offset-md-3 offset-lg-4">
+            <div class="card">
+                
+                <form class="box" method="POST" style="color: rgb(0, 0, 0);">
+                        <form method="POST" autocomplete="off" style="margin:100px;margin-top: 0px;">
+                            <h2>Para agregar una Pregunta</h2>
+                            <ul style="list-style:decimal;">
+                                <li>Carga la pregunta</li>
+                                <li>Pon el Puntaje Maximo</li>
+                                <li>Selecciona el Autor</li>
+                                <li>Seleccion la Categoria</li>
+                                <li>Y dale al Boton Cargar Categoria</li>
+                            </ul>
+                            <hr>
+                            <div class="form-group">
+                                <label for="pregunta" ></label> 
+                                {% csrf_token %}
+                              
+                                {{ preguntaForm }}
+                            <br><br>
+                                <input type="submit" name="ingresar" value="Agregar Categoria" class="btn btn-success mb-3" /> <br>
+                                                         
+                           </form>
+                           <hr><br><br>
+                           <a href="{% url 'ver_preguntas' %}" class="btn  btn-info" ></i>Ver preguntas</a>
+                           <a href="{% url 'HomeAdministrador' %}" class="btn  btn-danger" ></i>ir al   home de administracion</a>
+                       </div>
+                      
+                   </div>
+               </div>
+           </div>
+
+{% endblock content %}

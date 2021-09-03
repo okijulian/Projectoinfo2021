@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Agregar Respuestas
+{% endblock title %}
+
+{% block content %}
+{% include "navbar/navbaradmin.html" %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4 offset-sm-2 offset-md-3 offset-lg-4">
+            <div class="card">
+                
+                <form class="box" method="POST" style="color: rgb(0, 0, 0);">
+                        <form method="POST" autocomplete="off" style="margin:100px;margin-top: 110px;">
+                            <h2>Para Cargar las respuestas</h2>
+                            <ul style="list-style:decimal;">
+                                <li>Selecciona a cual pregunta corresponde</li>
+                                <li>Escribe la respuesta </li>
+                              
+                                <li>dale al boton de cargar respuesta</li>
+                                <li>Debes Cargar en Total 3 respuestas y en una de ellas marcar la casilla de si es la r</li>
+                                <li>Cuando cargues las 3 respuestas dale al boton Finalizar</li>
+                            </ul>
+                            <hr>
+                            <div class="form-group">
+                                <label for="categoria"></label>
+                                {% csrf_token %}
+                              
+                                {{ respuestaForm }}
+                            <br>
+                            <br>
+                            
+                                <input type="submit" name="ingresar" value="Cargar respuestas" class="btn btn-success mb-3" /> <br>                                      
+                          </form>
+                          <hr><br><br>
+                          <a href="{% url 'ver_respuestas' %}" class="btn  btn-info" ></i>Ver Respuestas</a>
+                          
+                           <a href="{% url 'HomeAdministrador' %}" class="btn  btn-danger" ></i>ir al   home de administracion</a>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           
+
+{% endblock content %}

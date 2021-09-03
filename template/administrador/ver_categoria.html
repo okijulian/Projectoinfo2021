@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Ver Categoria
+{% endblock title %}
+
+{% block content %}
+{% include "navbar/navbaradmin.html" %}
+<div class="container">
+  <div class="row">
+      <div class="col-12 col-sm-8 col-md-6 col-lg-4 offset-sm-2 offset-md-3 offset-lg-4">
+          <div class="card">
+              
+              <form class="box" method="POST" style="color: rgb(0, 0, 0);">
+
+                    <table class="table table-hover" id="dev-table">
+                        <thead>
+                          <tr>
+
+                            <th>nombre categoria</th>
+                            <th>descripcion</th>
+                          
+                        </thead>
+                        {% for c in categoria %}
+                        <tr>
+
+                          <td> {{c.nombre}}</td>
+                          <td>{{c.descripcion}}</td>
+                          
+                        </tr>
+                        {% endfor %}
+                      </table>
+                      <hr><br><br>
+                            <a href="{% url 'crear_categoria' %}" class="btn  btn-info" ></i>Crear nueva categoria</a>
+                           <a href="{% url 'HomeAdministrador' %}" class="btn  btn-danger" ></i>ir al   home de administracion</a>
+                    </div>
+                  </div>
+              </div>
+          </div>
+          
+
+
+  {% endblock content %}

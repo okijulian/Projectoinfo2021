@@ -4,9 +4,10 @@ from django.contrib.auth.models import User
 import random
 
 
-
 class Categoria(models.Model):
-	nombre=models.CharField(max_length=50)
+	nombre=models.CharField(max_length=100)
+	descripcion=models.CharField( max_length=800)
+	
 	
 	def __str__(self):
 		return self.nombre
@@ -16,8 +17,11 @@ class Pregunta(models.Model):
 
 	NUMER_DE_RESPUESTAS_PERMITIDAS = 1
 	Selec_categoria=models.ForeignKey(Categoria, on_delete=models.CASCADE)
+	autor = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 	texto = models.CharField(max_length=200,verbose_name='Pregunta')
 	max_puntaje = models.DecimalField(verbose_name='Maximo Puntaje', default=10, decimal_places=2, max_digits=6)
+	fecha_creacion = models.DateTimeField(auto_now_add=True)
+	
 
 	def __str__(self):
 		return self.texto 
@@ -28,7 +32,7 @@ class ElegirRespuesta(models.Model):
 	MAXIMO_RESPUESTA = 3
 
 	pregunta = models.ForeignKey(Pregunta, related_name='opciones', on_delete=models.CASCADE)
-	correcta = models.BooleanField(verbose_name='¿Es esta la pregunta correcta?', default=False, null=False)
+	correcta = models.BooleanField(verbose_name='Esta es la correcta?', default=False, null=False)
 	texto = models.CharField( max_length=100,verbose_name='Respuestas')
 
 
@@ -38,6 +42,7 @@ class ElegirRespuesta(models.Model):
 class QuizUsuario(models.Model):
 	usuario = models.OneToOneField(User, on_delete=models.CASCADE)
 	puntaje_total = models.DecimalField(verbose_name='Puntaje Total', default=0, decimal_places=2, max_digits=10)
+
 
 	def crear_intentos(self, pregunta):
 		intento = PreguntasRespondidas(pregunta=pregunta, quizUser=self)

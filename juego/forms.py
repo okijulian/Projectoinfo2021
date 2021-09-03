@@ -1,10 +1,45 @@
 from django import forms
-from .models import  Pregunta, ElegirRespuesta, PreguntasRespondidas
+from .models import  Pregunta, ElegirRespuesta, PreguntasRespondidas, Categoria
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, get_user_model
 
 
+
 User = get_user_model()
+
+
+class CategoriaForm(forms.ModelForm):
+	class Meta:
+		model=Categoria
+		fields=['nombre','descripcion']
+
+
+class PreguntaForm(forms.ModelForm):
+	categoria=forms.ModelChoiceField(queryset=Categoria.objects.all())
+	class Meta:
+		model=Pregunta
+		fields=[
+			'texto','max_puntaje','autor'
+		]
+		widgets = {
+            'texto': forms.Textarea(attrs={'rows': 2, 'cols': 40})
+        }
+
+
+class RespuestaForm(forms.ModelForm):
+	pregunta=forms.ModelChoiceField(queryset=Pregunta.objects.all())
+	class Meta:
+		model=ElegirRespuesta
+		
+		fields=[
+			'pregunta','texto','correcta'
+		]
+
+		widgets = {
+            'texto': forms.Textarea(attrs={'rows': 2, 'cols': 50})
+        }
+
+
 
 class ElegirInlineFormset(forms.BaseInlineFormSet):
 	def clean(self):

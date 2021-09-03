@@ -3,11 +3,11 @@
 }
 
 .box {
-    width: 600px;
-    padding: 100px;
+    width: 810px;
+    padding: 50px;
     position: absolute;
     top: 50%;
-    left: -30%;
+    left: -60%;
     background: #ffffff;
     border-radius: 40px;
 

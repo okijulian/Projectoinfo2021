@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Crear Categoria
+{% endblock title %}
+{% block content %}
+{% include "navbar/navbaradmin.html" %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4 offset-sm-2 offset-md-3 offset-lg-4">
+            <div class="card">
+                
+                <form class="box" method="POST" style="color: rgb(0, 0, 0);">
+                        <form method="POST" autocomplete="off" style="margin:100px;margin-top: 0px;">
+                            
+                            <h2>Agrega una Categoria</h2>
+                            <ul style="list-style:decimal;">
+                                <li>Pon nombre a la Categoria</li>
+                                <li>Agrega una breve descripcion de la categoria</li>
+                                <li>Dale al boton agregar Categoria</li>
+                                <hr>
+                            <div class="form-group">
+                                <label for="categoria">Categoria</label> 
+                                {% csrf_token %}
+                              
+                                {{ categoriaForm }}
+                            <br><br>
+                                <input type="submit" name="ingresar" value="Cargar Categoria" class="btn btn-success mb-3" /> <br>
+                            </form>
+                            <hr><br><br>
+                            <a href="{% url 'ver_categoria' %}" class="btn  btn-info" ></i>Ver categorias</a>
+                           <a href="{% url 'HomeAdministrador' %}" class="btn  btn-danger" ></i>ir al   home de administracion</a>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           
+
+
+{% endblock content %}
