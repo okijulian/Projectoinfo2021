@@ -89,12 +89,10 @@ class RegistroFormulario(UserCreationForm):
 		model = User 
 
 		fields = [
-
 			'nombre',
 			'apellido',
 			'username',
 			'email',
 			'password1',
 			'password2'
-
 		]
