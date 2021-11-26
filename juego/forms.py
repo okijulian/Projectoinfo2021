@@ -3,17 +3,11 @@ from .models import  Pregunta, ElegirRespuesta, PreguntasRespondidas, Categoria
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, get_user_model
 
-
-
 User = get_user_model()
-
-
 class CategoriaForm(forms.ModelForm):
 	class Meta:
 		model=Categoria
 		fields=['nombre','descripcion']
-
-
 class PreguntaForm(forms.ModelForm):
 	categoria=forms.ModelChoiceField(queryset=Categoria.objects.all())
 	class Meta:
@@ -24,23 +18,16 @@ class PreguntaForm(forms.ModelForm):
 		widgets = {
             'texto': forms.Textarea(attrs={'rows': 2, 'cols': 40})
         }
-
-
 class RespuestaForm(forms.ModelForm):
 	pregunta=forms.ModelChoiceField(queryset=Pregunta.objects.all())
 	class Meta:
-		model=ElegirRespuesta
-		
+		model=ElegirRespuesta		
 		fields=[
 			'pregunta','texto','correcta'
 		]
-
 		widgets = {
             'texto': forms.Textarea(attrs={'rows': 2, 'cols': 50})
         }
-
-
-
 class ElegirInlineFormset(forms.BaseInlineFormSet):
 	def clean(self):
 		super(ElegirInlineFormset, self).clean()
@@ -49,15 +36,12 @@ class ElegirInlineFormset(forms.BaseInlineFormSet):
 		for formulario in self.forms:
 			if not formulario.is_valid():
 				return
-
 			if formulario.cleaned_data and formulario.cleaned_data.get('correcta') is True:
 				respuesta_correcta += 1
-
 		try:
 			assert respuesta_correcta == Pregunta.NUMER_DE_RESPUESTAS_PERMITIDAS
 		except AssertionError:
 			raise forms.ValidationError('Exactamente una sola respuesta es permitida')
-
 
 class UsuarioLoginFormulario(forms.Form):
 	username = forms.CharField()
@@ -77,8 +61,6 @@ class UsuarioLoginFormulario(forms.Form):
 				raise forms.ValidationError("Este Usuario No esta activo")
 
 		return super(UsuarioLoginFormulario, self).clean(*args, **kwargs)
-
-
 
 class RegistroFormulario(UserCreationForm):
 	email = forms.EmailField(required=True)

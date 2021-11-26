@@ -15,7 +15,6 @@ class PreguntaAdmin(admin.ModelAdmin):
 	list_display = ['texto','Selec_categoria']
 	search_fields = ['texto', 'preguntas__texto']
 
-
 class PreguntasRespondidasAdmin(admin.ModelAdmin):
 	list_display = ['pregunta', 'respuesta', 'correcta', 'puntaje_obtenido']
 
@@ -25,7 +24,6 @@ class PreguntasRespondidasAdmin(admin.ModelAdmin):
 class CategoriaAdmin(admin.ModelAdmin):
 	model= Categoria
 	list_display=['nombre','descripcion']
-
 
 admin.site.register(PreguntasRespondidas)
 admin.site.register(Pregunta, PreguntaAdmin)
